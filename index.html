@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PK CODDING INSPIRATION</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PK CODDING INSPIRATION - Auto Bible Verses & Quotes, Kenyan flag theme, professional developer portfolio.">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --kenya-black: #000000;
+      --kenya-red: #BB1E10;
+      --kenya-green: #0C6B3C;
+      --kenya-white: #ffffff;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+      color: var(--kenya-black);
+      overflow: hidden;
+    }
+    /* Live animated gradient background inspired by Kenyan flag */
+    .bg-animate {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0;
+      background: linear-gradient(120deg,
+        var(--kenya-black) 0%,
+        var(--kenya-red) 33%,
+        var(--kenya-white) 50%,
+        var(--kenya-green) 67%,
+        var(--kenya-black) 100%
+      );
+      background-size: 200% 200%;
+      animation: gradientMove 12s ease-in-out infinite alternate;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%;}
+      100% { background-position: 100% 50%;}
+    }
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100vw; height: 100vh;
+      z-index: 1;
+      background: rgba(255,255,255,0.1);
+      pointer-events: none;
+    }
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      margin: 6vh auto;
+      background: rgba(255,255,255,0.8);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      padding: 2.5rem 2rem 2rem 2rem;
+      text-align: center;
+      min-height: 420px;
+    }
+    h1 {
+      font-size: 2.15rem;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin-bottom: 0.7em;
+      background: linear-gradient(to right, var(--kenya-black), var(--kenya-red), var(--kenya-white), var(--kenya-green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .verse, .quote {
+      font-size: 1.25rem;
+      font-style: italic;
+      margin: 1.3em 0 0.6em 0;
+      color: var(--kenya-black);
+      min-height: 56px;
+      transition: opacity 0.4s;
+    }
+    .source {
+      font-size: 1rem;
+      color: var(--kenya-green);
+      font-weight: 500;
+      margin-bottom: 1.2em;
+    }
+    .actions {
+      margin-top: 2em;
+      display: flex;
+      justify-content: center;
+      gap: 1.5em;
+      flex-wrap: wrap;
+    }
+    .follow-btn, .visit-btn {
+      padding: 0.7em 1.8em;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--kenya-black), var(--kenya-red));
+      color: var(--kenya-white);
+      text-decoration: none;
+      font-size: 1.07rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .visit-btn {
+      background: linear-gradient(to right, var(--kenya-green), var(--kenya-black));
+    }
+    .follow-btn:hover, .visit-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px) scale(1.04);
+    }
+    /* Live words animation (floating words) */
+    .live-words {
+      position: fixed;
+      pointer-events: none;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 3;
+    }
+    .live-word {
+      position: absolute;
+      font-size: 1.2rem;
+      font-weight: 700;
+      opacity: 0.25;
+      color: var(--kenya-black);
+      white-space: nowrap;
+      user-select: none;
+      animation: float-word 12s linear infinite;
+    }
+    @keyframes float-word {
+      0% { opacity: 0; transform: translateY(60vh) scale(0.85);}
+      10% { opacity: 0.30;}
+      50% { opacity: 0.25; transform: translateY(10vh) scale(1);}
+      85% { opacity: 0.15;}
+      100% { opacity: 0; transform: translateY(-10vh) scale(1.1);}
+    }
+    @media (max-width: 700px) {
+      .container { max-width: 95vw; padding: 1.1rem;}
+      h1 { font-size: 1.3rem;}
+      .verse, .quote { font-size: 1.04rem;}
+      .actions { flex-direction: column; gap: 1em;}
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animate"></div>
+  <div class="overlay"></div>
+  <div class="live-words" id="liveWords"></div>
+  <div class="container">
+    <h1>PK CODDING INSPIRATION</h1>
+    <div id="verseSection" class="verse"></div>
+    <div id="verseSource" class="source"></div>
+    <div id="quoteSection" class="quote"></div>
+    <div id="quoteSource" class="source"></div>
+    <div class="actions">
+      <a href="https://www.youtube.com/@Pkdriller" class="follow-btn" target="_blank" rel="noopener">Follow My Channel</a>
+      <a href="https://pkdriller.dev" class="visit-btn" target="_blank" rel="noopener">Visit My Website</a>
+    </div>
+  </div>
+  <script>
+    // Bible verses (add more as needed)
+    const bibleVerses = [
+      {
+        text: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.",
+        source: "Jeremiah 29:11"
+      },
+      {
+        text: "I can do all things through Christ who strengthens me.",
+        source: "Philippians 4:13"
+      },
+      {
+        text: "Trust in the Lord with all your heart and lean not on your own understanding.",
+        source: "Proverbs 3:5"
+      },
+      {
+        text: "The Lord is my shepherd; I shall not want.",
+        source: "Psalm 23:1"
+      },
+      {
+        text: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",
+        source: "Joshua 1:9"
+      }
+    ];
+
+    // Inspirational quotes (add more as needed)
+    const inspirationQuotes = [
+      {
+        text: "Code is like humor. When you have to explain it, it’s bad.",
+        source: "Cory House"
+      },
+      {
+        text: "The best way to get started is to quit talking and begin doing.",
+        source: "Walt Disney"
+      },
+      {
+        text: "Stay hungry, stay foolish.",
+        source: "Steve Jobs"
+      },
+      {
+        text: "Success is not the key to happiness. Happiness is the key to success.",
+        source: "Albert Schweitzer"
+      },
+      {
+        text: "Never stop learning, because life never stops teaching.",
+        source: "Unknown"
+      }
+    ];
+
+    // Live words (Kenya, Code, Inspire, Faith, Growth, etc.)
+    const liveWords = [
+      "Kenya", "Code", "Inspire", "Faith", "Growth", "Ubuntu", "Blessings", "Develop", "Create", "Innovate", "Jitume", "Purpose", "Integrity"
+    ];
+
+    // Utility to get a random item from array
+    function pickRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    // Display random Bible verse and quote on each visit
+    function displayInspiration() {
+      const verse = pickRandom(bibleVerses);
+      const quote = pickRandom(inspirationQuotes);
+      document.getElementById('verseSection').textContent = `"${verse.text}"`;
+      document.getElementById('verseSource').textContent = verse.source;
+      document.getElementById('quoteSection').textContent = `"${quote.text}"`;
+      document.getElementById('quoteSource').textContent = quote.source;
+    }
+
+    // Live floating words animation
+    function createLiveWords() {
+      const container = document.getElementById('liveWords');
+      container.innerHTML = '';
+      const numWords = window.innerWidth < 600 ? 6 : 12;
+      for (let i = 0; i < numWords; i++) {
+        const word = document.createElement('span');
+        word.className = 'live-word';
+        word.textContent = pickRandom(liveWords);
+        // Randomize position and delay
+        const left = Math.random() * 90;
+        const delay = Math.random() * 10;
+        const size = 1 + Math.random() * 1.5;
+        word.style.left = `${left}vw`;
+        word.style.top = `${10 + Math.random() * 65}vh`;
+        word.style.fontSize = `${size}rem`;
+        word.style.animationDelay = `${delay}s`;
+        // Use flag colors
+        const colors = ["#000", "#BB1E10", "#0C6B3C"];
+        word.style.color = colors[Math.floor(Math.random()*colors.length)];
+        container.appendChild(word);
+      }
+    }
+
+    // Refresh live words periodically
+    setInterval(createLiveWords, 9000);
+    window.addEventListener('resize', createLiveWords);
+
+    // Initial load
+    displayInspiration();
+    createLiveWords();
+  </script>
+</body>
+</html>
